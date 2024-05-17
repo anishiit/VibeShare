@@ -5,6 +5,7 @@ const postModel = require('./model/post');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+require('dotenv').config()
 
 app.set("view engine","ejs");
 app.use(express.json());
@@ -103,5 +104,5 @@ function isLoggedIn(req,res,next){
     }
    
 }
-
-app.listen(3000);
+const PORT = process.env.PORT
+app.listen(PORT);

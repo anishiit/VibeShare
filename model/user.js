@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 
-mongoose.connect("mongodb://127.0.0.1:27017/socialMedia");
-
-
+mongoose.connect(process.env.MONGODB_CONNECT_URI || "mongodb+srv://esesocietyiitism:rER1nbNz3eR92Ztk@vibeshare.x5hcku3.mongodb.net/?retryWrites=true&w=majority&appName=VibeShare");
+// "mongodb://127.0.0.1:27017/socialMedia"
+// 
+// 
 const userSchema = mongoose.Schema({
     username:String,
     name:String,
