@@ -2,40 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1.0, user-scalable=0">
+    <title>VibeShare</title>
     <link rel="stylesheet" href="/stylesheet//style.css">
     <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
-    
+<style>
+    .two-lines-only {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  </style>
 
 <body class="bg-zinc-900">
 
-    <div class="w-full min-h-screen bg-zinc-900 text-white">
-        <div class="posts mt-10 ml-4">
+    <div class="w-full min-h-screen bg-zinc-900 text-white ">
+        <div class="posts mt-6 ml-2 mr-2">
             <div class="div flex justify-between mr-3"><h3 class="text-zinc-400">All Posts</h3>
                 <div>
                     <a class="bg-blue-500 rounded-md text-sm p-2" href="/profile">Profile</a> 
+                    <a class="bg-blue-500 rounded-md text-sm p-2" href="/chatRoom">chatRoom</a> 
                     <a class="bg-red-500 rounded-md text-sm p-2" href="/logout">Logout</a></div>
             </div>
             
             
-            <div class="postcontainer mt-5 flex  gap-2  flex-wrap">
+            <div class="postcontainer mt-5 flex  gap-4 w-full flex-wrap">
 
 
         <% posts.reverse().forEach(function(post){%>
-            <div class="post mb-2 w-1/3 p-4 border-[1px] border-zinc-700 bg-zinc-800 rounded-md">
+            <div class="post mb-1 w-[45vw] p-4 border-[1px] flex flex-col  justify-between border-zinc-700 bg-zinc-800 rounded-md overflow-hidden whitespace-normal">
                 <a href="/profile/<%= post.user.username %>" class="text-blue-500 ">@<%= post.user.username %></a>
-                <p class="text-sm text-gray-400 tracking-tight"><%= post.content %></p>
-                <div class="btns flex gap-4 mt-5">
-                    <a href="" class="text-blue-700">Like</a>
-                    <a href="" class="text-zinc-500">Edit</a>
+                <p class="text-sm text-gray-400  tracking-tight two-lines-only mt-1"><%= post.content %></p>
+                
+                <div class="btns flex justify-between mt-4">
+                    <small class="mt-1  text-gray-500"><%= post.likes.length %> likes</small>
+                    <a  href="/like/<%=post._id %>" class="text-blue-700"> <%=post.likes.indexOf(user._id) === -1 ? "Likes" :"Unlike" %> </a>
+                    
                 </div>
                         </div>
        <% }) %>
    
    
             </div></div> </div>
+            
 </body>
 </html>
