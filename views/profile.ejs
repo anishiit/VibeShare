@@ -30,8 +30,8 @@
             <h4 class="text-blue-500 mb-3">@<%= user.username %></h4>
             <p class="text-sm text-gray-400 tracking-tight"><%= post.content %></p>
             <div class="btns flex gap-4 mt-5">
-               
-                <a href="/edit/<%= post._id %>" class="text-zinc-500">Edit</a>
+               <a href="/edit/<%= post._id %>" class="text-zinc-500">Edit</a> <a href="/delete/<%= post._id %>" class="text-red-500">Delete</a>
+                
             </div>
                     </div>
    <% }) %>

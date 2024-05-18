@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const userModel = require('./model/user');
 const postModel = require('./model/post');
+const messageModel = require('./model/message');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -58,14 +59,31 @@ app.post("/update/:id",isLoggedIn,async(req,res)=>{
 
     res.redirect("/profile");
 
+});
+app.get('/delete/:id',async(req,res)=>{
+    let post =await postModel.findOneAndDelete({_id: req.params.id});
+    res.redirect('/profile');
 })
-app.get("/chatRoom",(req,res)=>{
+app.get("/chatRoom",isLoggedIn,(req,res)=>{
     res.render("chatRoom")
 })
-app.get("/message",(req,res)=>{
-    res.render("chatRoom")
-})
+app.get("/message",isLoggedIn,(req,res)=>{
 
+    res.render("message")
+})
+app.post('/message',isLoggedIn,async(req,res)=>{
+    
+    let user =await userModel.findOne({email: req.user.email});
+let {message}= req.body;
+let post= await messageModel.create({
+    user: user._id,
+    message
+});
+
+user.messages.push(post._id);
+ await user.save();  
+ res.redirect("/message");
+})
 
 app.post('/post',isLoggedIn,async(req,res)=>{
     
